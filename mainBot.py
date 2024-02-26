@@ -15,7 +15,10 @@ def nearestDiamond(board_bot: GameObject, board: Board) :
     sorted_blue_diamond_distance = sorted(blue_diamond_distance, key=lambda x: x[0])
     sorted_red_diamond_distance = sorted(red_diamond_distance, key=lambda x: x[0])
 
-    next_position = sorted_blue_diamond_distance[0][1]
+    if sorted_red_diamond_distance[0] < sorted_blue_diamond_distance[1]:
+        next_position = sorted_red_diamond_distance[0][1]
+    else:
+        next_position = sorted_blue_diamond_distance[0][1]
     return next_position
 
 class PrototypeLogic(BaseLogic):
