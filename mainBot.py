@@ -9,6 +9,7 @@ from ..util import get_direction
 class PrototypeLogic(BaseLogic):
     def __init__(self):
         self.directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
         self.goal_position: Optional[Position] = None
         self.current_direction = 0
         self.sorted_blue_diamond_distance: list[tuple[int, Position]]
@@ -31,6 +32,14 @@ class PrototypeLogic(BaseLogic):
             else:
                 self.goal_position = self.sorted_blue_diamond_distance[0][1]
     
+
+    def getBaseDistance(self, board_bot: GameObject, board: Board) :
+        positionBot = board_bot.position
+        base = board_bot.properties.base
+        base_distance = abs(base.x - positionBot.x) + abs(base.y - positionBot.y)
+        return base_distance
+
+
     def next_move(self, board_bot: GameObject, board: Board):
         props = board_bot.properties
         # Analyze new state
@@ -38,7 +47,7 @@ class PrototypeLogic(BaseLogic):
             base = board_bot.properties.base
             self.goal_position = base
         else:
-        
+            bot_base_distance = self.getBaseDistance(board_bot, board)
             diamonds = [diamond for diamond in board.game_objects if diamond.type == 'DiamondGameObject']
             positionBot = board_bot.position
             blue_diamond_distance = [(abs(B.position.x - positionBot.x) + abs(B.position.y - positionBot.y), B.position) for B in diamonds if B.properties.points == 1]
@@ -46,7 +55,14 @@ class PrototypeLogic(BaseLogic):
 
             self.sorted_blue_diamond_distance = sorted(blue_diamond_distance, key=lambda x: x[0])
             self.sorted_red_diamond_distance = sorted(red_diamond_distance, key=lambda x: x[0])
-            self.nearest_Diamond(red_diamond_distance,blue_diamond_distance, props.diamonds)
+            # self.nearest_Diamond(red_diamond_distance,blue_diamond_distance, props.diamonds)
+            if bot_base_distance != 0:
+                if bot_base_distance < self.sorted_blue_diamond_distance[0][0] and bot_base_distance < self.sorted_red_diamond_distance[0][0] and props.diamonds != 0:
+                    self.goal_position = board_bot.properties.base
+                else:
+                    self.nearest_Diamond(red_diamond_distance,blue_diamond_distance, props.diamonds)
+            else:
+                self.nearest_Diamond(red_diamond_distance,blue_diamond_distance, props.diamonds)
 
         current_position = board_bot.position
 
