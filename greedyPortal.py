@@ -30,56 +30,96 @@ class PortalLogic(BaseLogic):
             second_portal = portal_position[0]
         return nearest_portal, second_portal
     
-    def logicPortal(self, result : bool, leng : int, diamonds_position : list[Position], board_bot: GameObject, final_distance : Optional[Position]) :
-        distance_from_bot = self.getDistance(diamonds_position[leng - 1], board_bot.position)
-        distance_with_portal = self.getDistance(self.portal[0], board_bot.position) + self.getDistance(self.portal[1], diamonds_position[leng - 1])
-        if distance_with_portal <= distance_from_bot :
-            temp_final_distance = distance_with_portal
+    def logicPortal(self, diamonds_position : list[Position], board_bot: GameObject) :
+        distance_from_bot = self.getDistance(diamonds_position[-1], board_bot.position)
+        distance_with_portal = self.getDistance(self.portal[0], board_bot.position) + self.getDistance(self.portal[1], diamonds_position[-1])
+        if distance_with_portal < distance_from_bot :
             result = True
+            temp_final_distance = distance_with_portal
         else :
-            temp_final_distance = distance_from_bot
             result = False
-        if temp_final_distance < final_distance :
-            if result:
-                goal_position = self.portal[0]
-            else :
-                goal_position = diamonds_position[leng - 1]
-        diamonds_position.pop()
-        leng -= 1
-        return goal_position, final_distance
+            temp_final_distance = distance_from_bot
+        return temp_final_distance, result
     
-    def greedydiamondportal(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject) :
-        result_blue = False
-        result_red = False
-        goal_blue : Optional[tuple[Position, int]] = None
-        goal_red : Optional[tuple[Position, int]] = None
+    def logicDiamond(self, diamonds_position : list[Position], board_bot: GameObject) :
+        distance_from_bot = self.getDistance(diamonds_position[-1], board_bot.position)
+        return distance_from_bot
+
+    def greedyNearestDiamond(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject) :
+        goal_blue : Optional[Position] = None
+        goal_red : Optional[Position] = None
         leng_blue = len(blue_diamonds_position)
         leng_red = len(red_diamonds_position)
-        pass_leng_blue = leng_blue
-        pass_leng_red = leng_red
-        final_distance_blue = blue_diamonds_position[pass_leng_blue - 1]
-        final_distance_red = blue_diamonds_position[pass_leng_red - 1]
-        if (leng_blue == 0) :
-            goal_blue = self.logicPortal(result_blue, pass_leng_blue, blue_diamonds_position, board_bot, final_distance_blue)
-        if (leng_blue == 0) :
-            goal_red =  self.logicPortal(result_red, pass_leng_red, blue_diamonds_position, board_bot, final_distance_red)
-        while pass_leng_blue != 0 and pass_leng_red != 0:
-            if (pass_leng_blue != 0) :
-                goal_blue = self.logicPortal(result_blue, pass_leng_blue, blue_diamonds_position, board_bot, final_distance_blue)
-            if (pass_leng_red != 0) :
-                goal_red = self.logicPortal(result_red, pass_leng_red, blue_diamonds_position, board_bot, final_distance_red)
+        if (leng_blue != 0) :
+            final_distance_blue = self.getDistance(blue_diamonds_position[leng_blue - 1], board_bot.position)
+        if (leng_red != 0) :
+            final_distance_red = self.getDistance(red_diamonds_position[leng_red - 1], board_bot.position)
+        while leng_blue != 0 or leng_red != 0:
+            if (leng_blue != 0) :
+                temp_blue = self.logicDiamond(blue_diamonds_position, board_bot)
+                if temp_blue < final_distance_blue :
+                    final_distance_blue = temp_blue
+                    goal_blue = blue_diamonds_position[-1]
+                blue_diamonds_position.pop()
+                leng_blue -= 1
+            if (leng_red != 0) :
+                temp_red = self.logicDiamond(red_diamonds_position, board_bot)
+                if temp_red < final_distance_red :
+                    final_distance_red = temp_red
+                    goal_red = red_diamonds_position[-1]
+                red_diamonds_position.pop()
+                leng_red -= 1
         if (goal_blue != None and goal_red != None) :
-            if goal_red[1] <= goal_blue[1] :
-                self.goal_position = goal_red[0]
+            if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4 :
+                self.goal_position = goal_red
             else:
-                self.goal_position = goal_blue[0]
-        elif goal_blue == 0 :
-            self.goal_position = goal_blue[0]
+                self.goal_position = goal_blue
+        elif goal_blue == None :
+            self.goal_position = goal_red
         else :
-            self.goal_position = goal_red[0]
-
-    # def nearest_Diamond(self, diamond_distance : list[tuple[Position]], currentLoad : int) :
-    #     while len(diamond_distance):
+            self.goal_position = goal_blue
+    
+    def greedyDiamondPortal(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject) :
+        goal_position_blue : Optional[Position] = None
+        goal_position_red : Optional[Position] = None
+        leng_blue = len(blue_diamonds_position)
+        leng_red = len(red_diamonds_position)
+        if (leng_blue != 0) :
+            final_distance_blue = self.getDistance(blue_diamonds_position[-1], board_bot.position)
+        if (leng_red != 0) :
+            final_distance_red = self.getDistance(red_diamonds_position[-1], board_bot.position)
+        while leng_blue != 0 or leng_red != 0:
+            if (leng_blue != 0) :
+                temp_position_blue = self.logicPortal(blue_diamonds_position, board_bot)
+                temp_final_distance_blue = temp_position_blue[0]
+                if temp_final_distance_blue < final_distance_blue :
+                    final_distance_blue = temp_final_distance_blue
+                    if temp_position_blue[1]:
+                        goal_position_blue = self.portal[0]
+                    else :
+                        goal_position_blue = blue_diamonds_position[-1]
+                blue_diamonds_position.pop()
+                leng_blue -= 1
+            if (leng_red != 0) :
+                temp_position_red = self.logicPortal(red_diamonds_position, board_bot)
+                temp_final_distance_red = temp_position_red[0]
+                if temp_final_distance_red < final_distance_red :
+                    final_distance_red = temp_final_distance_red
+                    if temp_position_red[1]:
+                        goal_position_red = self.portal[0]
+                    else :
+                        goal_position_red = red_diamonds_position[-1]
+                red_diamonds_position.pop()
+                leng_red -= 1
+        if (goal_position_blue != None and goal_position_red != None) :
+            if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4:
+                self.goal_position = goal_position_red
+            else:
+                self.goal_position = goal_position_blue
+        elif goal_position_blue == None :
+            self.goal_position = goal_position_red
+        else :
+            self.goal_position = goal_position_blue
     
     def next_move(self, board_bot: GameObject, board: Board):
         props = board_bot.properties
@@ -91,11 +131,11 @@ class PortalLogic(BaseLogic):
             self.portal = self.getPortal(board_bot, board)
             blue_diamonds = [diamond.position for diamond in board.game_objects if diamond.type == 'DiamondGameObject' if diamond.properties.points == 1]
             red_diamonds = [diamond.position for diamond in board.game_objects if diamond.type == 'DiamondGameObject' if diamond.properties.points == 2]
-            
             if (board_bot.position in self.portal) :
-                self.nearest_Diamond(red_diamonds, blue_diamonds, props.diamonds)
+                self.greedyNearestDiamond(blue_diamonds, red_diamonds, board_bot)
             else :
-                self.greedydiamondportal(blue_diamonds, red_diamonds, board_bot)
+                self.greedyDiamondPortal(blue_diamonds, red_diamonds, board_bot)
+                print(self.portal, self.goal_position)
             
 
         current_position = board_bot.position
