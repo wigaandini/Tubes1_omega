@@ -4,7 +4,7 @@ from game.logic.base import BaseLogic
 from game.models import GameObject, Board, Position
 from ..util import get_direction
 
-class UltimateLogic(BaseLogic):
+class UltimateLogic2(BaseLogic):
     def __init__(self):
         self.goal_position: Optional[Position] = None
         self.portal: tuple[Position, Position]
@@ -13,8 +13,6 @@ class UltimateLogic(BaseLogic):
         self.distance_to_Base: int
         self.distance_to_redButton: int
         self.redButton_position: list[Position]
-        self.isBasePortal: bool = False
-        self.isRedButtonPortal: bool = False
     
     def getDistance(self, A: Position, B: Position) :
         return (abs(B.x - A.x) + abs(B.y - A.y))
@@ -54,9 +52,11 @@ class UltimateLogic(BaseLogic):
         leng_blue = len(blue_diamonds_position)
         leng_red = len(red_diamonds_position)
         if (leng_blue != 0) :
-            final_distance_blue = self.getDistance(blue_diamonds_position[leng_blue - 1], board_bot.position)
+            final_distance_blue = self.getDistance(blue_diamonds_position[-1], board_bot.position)
+            goal_blue = blue_diamonds_position[-1]
         if (leng_red != 0) :
-            final_distance_red = self.getDistance(red_diamonds_position[leng_red - 1], board_bot.position)
+            final_distance_red = self.getDistance(red_diamonds_position[-1], board_bot.position)
+            goal_red = red_diamonds_position[-1]
         while leng_blue != 0 or leng_red != 0:
             if (leng_blue != 0) :
                 temp_blue = self.logicDiamond(blue_diamonds_position, board_bot)
@@ -80,7 +80,7 @@ class UltimateLogic(BaseLogic):
                 else :
                     self.logicBasePortal(board_bot, board)
             elif self.distance_to_redButton < final_distance_blue and self.distance_to_redButton < final_distance_blue:
-                if (board_bot.position in self.portal or not self.isRedButtonPortal) :
+                if (board_bot.position in self.portal) :
                     self.goal_position = self.redButton_position[0]
                 else :
                     self.logicRedButtonPortal(board_bot, board)
@@ -152,7 +152,7 @@ class UltimateLogic(BaseLogic):
                 else :
                     self.logicBasePortal(board_bot, board)
             elif self.distance_to_redButton < final_distance_blue and self.distance_to_redButton < final_distance_blue:
-                if (board_bot.position in self.portal or not self.isRedButtonPortal) :
+                if (board_bot.position in self.portal) :
                     self.goal_position = self.redButton_position[0]
                 else :
                     self.logicRedButtonPortal(board_bot, board)
