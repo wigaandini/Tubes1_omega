@@ -17,6 +17,39 @@ Diamonds adalah sebuah tantangan pemrograman di mana bot yang dibuat akan bersai
 Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Distance and Diamond Type* sebagai strategi bot kami. Algoritma ini mengutamakan jarak terdekat yang harus ditempuh untuk mencapai diamond dan mengutamakan diamond merah dibandingkan biru.
 
 ## Project Structure
+```bash
+.
+├───README.md
+│
+├───img                                   
+│
+├───doc  
+│   ├─── Laporan
+│                      
+├───src                                             # Program
+    ├── tubes1-IF2211-bot-starter-pack-1.0.1        # Folder untuk menyimpan algoritma      
+        ├─── game
+             ├─── logic 
+                  ├─── omegaBot.py                  # Algoritma logic bot omega
+                  ├─── random.py                    # Algoritma logic bot bawaan
+             ├─── __init__.py 
+             ├─── api.py 
+             ├─── board_handler.py 
+             ├─── bot_handler.py 
+             ├─── models.py 
+             ├─── util.py 
+        ├─── decode.py
+        ├─── main.py
+        ├─── README.md
+        ├─── requirements.txt
+        ├─── run-bots.bat
+        ├─── run-bots.sh
+
+        
+
+
+```
+
 
 ## Requirements Program
 1. **Game Engine**
@@ -108,3 +141,26 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
     ```
 
 ## Hasil Uji Coba Program
+1. Ketika sudah membawa 5 diamond maka bot akan kembali ke base
+![base5](img/base5.png)
+![base5-1](img/base5-1.png)
+
+2. Ketika sudah membawa lebih dari/sama dengan 3 diamond dan jarak bot terhadap base lebih dekat daripada jarak bot terhadap diamond terdekat maka bot akan kembali ke base.
+![base3](img/base3.png)
+![base3-1](img/base3-1.png)
+
+3. Ketika jarak bot terhadap diamond terdekat yang melalui portal lebih dekat daripada jarak bot terhadap diamond terdekat tanpa melalui portal maka bot akan memasuki portal.
+![portal](img/portal.png)
+![portal-1](img/portal-1.png)
+
+4. Ketika jarak bot terhadap red button lebih dekat daripada jarak bot terhadap objek-objek lainnya (diamond, base dan/atau portal) maka bot akan menuju red button.
+![red](img/red.png)
+![red-1](img/red-1.png)
+
+5. Ketika jarak bot terhadap diamond merah berada lebih dekat/sama dengan diamond biru maka bot akan mengejar diamond merah terlebih dahulu.
+![d](img/d.png)
+![d-1](img/d-1.png)
+
+
+## Video Presentasi
+https://youtu.be/xtaVg9WamMs?si=vlEcWDkgcGVoQr8N
