@@ -50,7 +50,8 @@ class OmegaLogic(BaseLogic):
         distance_from_bot = self.getDistance(diamonds_position[-1], board_bot.position)
         return distance_from_bot
 
-    # Mencari diamond terdekat dengan bot
+
+    # Mencari diamond terdekat dengan bot menggunakan algoritma greedy
     def greedyNearestDiamond(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject, board: Board) : 
         goal_blue : Optional[Position] = None
         goal_red : Optional[Position] = None
@@ -126,7 +127,8 @@ class OmegaLogic(BaseLogic):
             self.goal_position = redButton
 
 
-    def greedyDiamondPortal(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject, board: Board) : # Mencari diamond terdekat dengan bot melalui portal dengan algoritma greedy
+    # Mencari diamond terdekat dengan bot melalui portal dengan algoritma greedy
+    def greedyDiamondPortal(self, blue_diamonds_position : list[Position], red_diamonds_position : list[Position], board_bot: GameObject, board: Board) : 
         goal_position_blue : Optional[Position] = None
         goal_position_red : Optional[Position] = None
         leng_blue = len(blue_diamonds_position)
