@@ -35,7 +35,7 @@ class OmegaLogic(BaseLogic):
         return nearest_portal, second_portal
     
 
-    def logicPortal(self, diamonds_position : list[Position], board_bot: GameObject) : # Memilih jarak dari bot ke diamond melalui portal/tidak 
+    def logicPortal(self, diamonds_position : list[Position], board_bot: GameObject) : # Menentukan jarak dari bot ke diamond terdekat melalui/tidak melalui portal
         distance_from_bot = self.getDistance(diamonds_position[-1], board_bot.position)
         distance_with_portal = self.getDistance(self.portal[0], board_bot.position) + self.getDistance(self.portal[1], diamonds_position[-1])
         if distance_with_portal < distance_from_bot :
@@ -113,7 +113,7 @@ class OmegaLogic(BaseLogic):
                 self.logicRedButtonPortal(board_bot, board)
         
 
-    # Memilih jarak terdekat dari bot ke base melalui portal/tidak    
+    # Memilih jarak terdekat dari bot ke base melalui/tidak melalui portal
     def logicBasePortal (self, board_bot : GameObject, board : Board) :
         bot_position = board_bot.position
         base = board_bot.properties.base
@@ -251,5 +251,4 @@ class OmegaLogic(BaseLogic):
             self.goal_position.x,
             self.goal_position.y,
         )
-        print(board_bot.properties.milliseconds_left)
         return delta_x, delta_y
