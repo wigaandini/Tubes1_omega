@@ -64,19 +64,14 @@ class PrototypeLogicN(BaseLogic):
 
         current_position = board_bot.position
 
-        # Check for nearby bots
         nearby_bots = [bot for bot in board.game_objects if bot.type == 'BotGameObject' and bot.id != board_bot.id]
         for bot in nearby_bots:
             if abs(bot.position.x - current_position.x) + abs(bot.position.y - current_position.y) == 1:
-                # Attack nearby bot
                 if bot.properties.diamonds > 0:
-                    # Steal diamonds from the bot
                     bot.properties.diamonds -= 1
                     props.diamonds += 1
-                    # Update goal position if the bot has fewer than 3 diamonds and there are nearby bots with diamonds
                     if props.diamonds < 3 and any(nbot.properties.diamonds > 0 for nbot in nearby_bots):
                         self.nearest_Bot([nbot for nbot in nearby_bots if nbot.properties.diamonds > 0], board_bot.position)
-                        # Calculate direction towards the new goal position
                         delta_x, delta_y = get_direction(
                             current_position.x,
                             current_position.y,
