@@ -1,10 +1,10 @@
-<h1 align="center"> <b> Tugas Besar 1 IF2211 Strategi Algoritma <b> </h1>
+<h1 align="center"> Tugas Besar 1 IF2211 Strategi Algoritma </h1>
 <h1 align="center">  Pemanfaatan Algoritma <em> Greedy </em> dalam Pembuatan Bot Permainan <em> Diamonds </em> </h1>
 
 ![omega](img/omega.jpg)
 
 ## Contributors
-### **Kelompok 8:  Omega**
+### **Kelompok 8 "Omega"**
 |   NIM    |                  Nama                  |
 | :------: | :------------------------------------: |
 | 13522053 |       Erdianti Wiga Putri Andini       |
