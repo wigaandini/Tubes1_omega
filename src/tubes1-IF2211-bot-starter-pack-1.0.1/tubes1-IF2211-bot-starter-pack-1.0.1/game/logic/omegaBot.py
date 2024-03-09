@@ -4,7 +4,7 @@ from game.logic.base import BaseLogic
 from game.models import GameObject, Board, Position
 from ..util import get_direction
 
-class omegaBot(BaseLogic):
+class omegaLogic(BaseLogic):
     def __init__(self): # Inisialisasi
         self.goal_position: Optional[Position] = None
         self.portal: tuple[Position, Position]
