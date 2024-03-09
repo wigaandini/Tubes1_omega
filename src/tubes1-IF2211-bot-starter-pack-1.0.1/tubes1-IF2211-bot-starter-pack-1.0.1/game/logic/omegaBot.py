@@ -23,7 +23,7 @@ class OmegaLogic(BaseLogic):
         return (X.x >= A.x >= Y.x or X.x <= A.x <= Y.x) and (X.y >= A.y >= Y.y or X.y <= A.y <= Y.y) and (X.x != A.x and X.y != A.y) and (Y.x != A.x and Y.y != A.y)
 
 
-    def getPortal(self, board_bot: GameObject, board : Board) : # Mencari posisi portal awal yang terdekat dengan bot dan portal akhir yang terdekat dengan diamond, return berupa posisi portal awal dan portal akhir
+    def getPortal(self, board_bot: GameObject, board : Board) : # Mencari posisi portal awal yang terdekat dengan bot, return berupa posisi portal awal dan portal akhir
         portal_position = [d.position for d in board.game_objects if d.type == 'TeleportGameObject']
         bot_position = board_bot.position
         if (self.getDistance(portal_position[0], bot_position) < self.getDistance(portal_position[1], bot_position)):
