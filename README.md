@@ -95,7 +95,7 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
     ```
     d. Menjalankan program dengan cara menjalankan perintah berikut. 
     ``` bash
-    python main.py --logic HighestDensity --email=your_email@example.com --name=your_name --password=your_password --team etimo
+    python main.py --logic omegaBot --email=your_email@example.com --name=your_name --password=your_password --team etimo
     ```
     e. Untuk menjalankan satu beberapa bot, dapat menggunakan perintah berikut.
     Untuk windows
