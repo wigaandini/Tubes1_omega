@@ -19,7 +19,7 @@ class OmegaLogic(BaseLogic):
         return (abs(B.x - A.x) + abs(B.y - A.y))
     
 
-    def isInDomain(self, X : Position, Y: Position, A: Position): # Mengecek apakah bot berada di dalam domain X dan Y
+    def isInDomain(self, X : Position, Y: Position, A: Position): # Mengecek apakah objek berada di dalam domain X dan Y
         return (X.x >= A.x >= Y.x or X.x <= A.x <= Y.x) and (X.y >= A.y >= Y.y or X.y <= A.y <= Y.y) and (X.x != A.x and X.y != A.y) and (Y.x != A.x and Y.y != A.y)
 
 
