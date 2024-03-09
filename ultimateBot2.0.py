@@ -74,25 +74,28 @@ class UltimateLogic2(BaseLogic):
                 leng_red -= 1
         # print("a", goal_blue, goal_red)
         if (goal_blue != None and goal_red != None) :
-            if self.distance_to_base < final_distance_blue and self.distance_to_base < final_distance_blue and board_bot.position != board_bot.properties.base and board_bot.properties.diamonds >= 3:
-                if (board_bot.position in self.portal) :
-                    self.goal_position = board_bot.properties.base
-                else :
-                    self.logicBasePortal(board_bot, board)
-            elif self.distance_to_redButton < final_distance_blue and self.distance_to_redButton < final_distance_blue:
-                if (board_bot.position in self.portal) :
-                    self.goal_position = self.redButton_position[0]
-                else :
-                    self.logicRedButtonPortal(board_bot, board)
+            if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4:
+                final_distance_diamond = final_distance_red
+                self.goal_position = goal_red
             else:
-                if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4:
-                    self.goal_position = goal_red
-                else:
-                    self.goal_position = goal_blue
+                final_distance_diamond = final_distance_blue
+                self.goal_position = goal_blue
         elif goal_blue == None :
+            final_distance_diamond = final_distance_red
             self.goal_position = goal_red
         else :
+            final_distance_diamond = final_distance_blue
             self.goal_position = goal_blue
+        if self.distance_to_base <= final_distance_diamond and board_bot.position != board_bot.properties.base and board_bot.properties.diamonds >= 3:
+            if (board_bot.position in self.portal) :
+                self.goal_position = board_bot.properties.base
+            else :
+                self.logicBasePortal(board_bot, board)
+        elif self.distance_to_redButton <= final_distance_diamond:
+            if (board_bot.position in self.portal) :
+                self.goal_position = self.redButton_position[0]
+            else :
+                self.logicRedButtonPortal(board_bot, board)
         
     def logicBasePortal (self, board_bot : GameObject, board : Board) :
         bot_position = board_bot.position
@@ -146,25 +149,28 @@ class UltimateLogic2(BaseLogic):
                 leng_red -= 1
         # print("b", goal_position_blue, goal_position_red)
         if (goal_position_blue != None and goal_position_red != None) :
-            if self.distance_to_base < final_distance_blue and self.distance_to_base < final_distance_blue and board_bot.position != board_bot.properties.base and board_bot.properties.diamonds >= 3:
-                if (board_bot.position in self.portal) :
-                    self.goal_position = board_bot.properties.base
-                else :
-                    self.logicBasePortal(board_bot, board)
-            elif self.distance_to_redButton < final_distance_blue and self.distance_to_redButton < final_distance_blue:
-                if (board_bot.position in self.portal) :
-                    self.goal_position = self.redButton_position[0]
-                else :
-                    self.logicRedButtonPortal(board_bot, board)
+            if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4:
+                final_distance_diamond = final_distance_red
+                self.goal_position = goal_position_red
             else:
-                if final_distance_red <= final_distance_blue and board_bot.properties.diamonds != 4:
-                    self.goal_position = goal_position_red
-                else:
-                    self.goal_position = goal_position_blue
+                final_distance_diamond = final_distance_blue
+                self.goal_position = goal_position_blue
         elif goal_position_blue == None :
+            final_distance_diamond = final_distance_red
             self.goal_position = goal_position_red
         else :
+            final_distance_diamond = final_distance_blue
             self.goal_position = goal_position_blue
+        if self.distance_to_base <= final_distance_diamond and board_bot.position != board_bot.properties.base and board_bot.properties.diamonds >= 3:
+            if (board_bot.position in self.portal) :
+                self.goal_position = board_bot.properties.base
+            else :
+                self.logicBasePortal(board_bot, board)
+        elif self.distance_to_redButton <= final_distance_diamond:
+            if (board_bot.position in self.portal) :
+                self.goal_position = self.redButton_position[0]
+            else :
+                self.logicRedButtonPortal(board_bot, board)
     
     def diamondInArea(self, position : Position, radius : int):
         blue = [b for b in self.blue_diamonds if ((position.x - radius) <= b.x <= (position.x + radius)) and ((position.y - radius) <= b.y <= (position.y + radius)) ]
