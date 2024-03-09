@@ -27,7 +27,7 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
 │   ├─── Laporan
 │                      
 ├───src                                             # Program
-│   ├── tubes1-IF2211-bot-starter-pack-1.0.1        # Folder untuk menyimpan algoritma      
+    ├── tubes1-IF2211-bot-starter-pack-1.0.1        # Folder untuk menyimpan algoritma      
         ├─── game
              ├─── logic 
                   ├─── omegaBot.py                  # Algoritma logic bot omega
