@@ -160,3 +160,7 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
 5. Ketika jarak bot terhadap diamond merah berada lebih dekat/sama dengan diamond biru maka bot akan mengejar diamond merah terlebih dahulu.
 ![d](img/d.png)
 ![d-1](img/d-1.png)
+
+
+## Video Presentasi
+https://youtu.be/xtaVg9WamMs?si=vlEcWDkgcGVoQr8N
