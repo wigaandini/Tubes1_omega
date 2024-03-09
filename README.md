@@ -36,6 +36,7 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
 1. Men-*download* starter pack file .zip game engine yang terdapat pada tautan https://github.com/haziqam/tubes1-IF2211-game-engine/releases/tag/v1.1.0
 
     a. Setelah melakukan instalasi, *extract* file .zip tersebut.
+    
     b. Masuk ke root directory dari program dengan menjalankan perintah berikut pada terminal untuk masuk ke root directory dari game engine.
     ```bash
     cd tubes1-IF2110-game-engine-1.1.0
@@ -81,7 +82,9 @@ Pada program kami, kami menggabungkan dua algoritma *greedy* yaitu *Greedy by Di
 
 
 2. Men-*download* bot starter pack dengan ekstensi .zip yang terdapat pada tautan https://github.com/haziqam/tubes1-IF2211-bot-starter-pack/releases/tag/v1.0.1 
+    
     a. Melakukan *extract* file zip tersebut, kemudian masuk ke folder hasil *extract*.
+
     b. Membuka terminal dan menjalankan perintah berikut untuk masuk ke root directory dari project.
     ```bash
     cd tubes1-IF2110-bot-starter-pack-1.0.1
